@@ -1,0 +1,535 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Technical Training: Wiring Fundamentals&lt;/title&gt;</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Tailwind CSS --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- React and ReactDOM --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js" crossorigin="anonymous"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js" crossorigin="anonymous"&gt;&lt;/script&gt;</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Babel --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js" crossorigin="anonymous"&gt;&lt;/script&gt;</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Three.js --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" crossorigin="anonymous"&gt;&lt;/script&gt;</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Fonts --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>body {<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #1e293b;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #f1f5f9;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Inter', sans-serif;<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.font-mono { font-family: 'JetBrains Mono', monospace; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* Animations */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.fade-up { animation: fadeUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; opacity: 0; transform: translateY(20px); }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* Breaker Switch Animation */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.breaker-switch { transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.breaker-on { transform: rotate(0deg); background-color: #ef4444; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.breaker-off { transform: rotate(180deg) translateY(-4px); background-color: #22c55e; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* Wire Simulation */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.wire-connector { cursor: pointer; transition: all 0.2s; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.wire-connector:hover { transform: scale(1.1); }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.wire-connector.selected { stroke: #38bdf8; stroke-width: 4px; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>#three-canvas-container { width: 100%; height: 100%; border-radius: 0.5rem; overflow: hidden; background: #0f172a; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="root"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="error-display" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#0f172a; color:red; padding:40px;"&gt;Error Loading Application&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script type="text/babel"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const { useState, useEffect, useRef } = React;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- ICONS ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const Icons = {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>Bolt: () =&gt; &lt;svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"&gt;&lt;path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/&gt;&lt;/svg&gt;,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>Check: () =&gt; &lt;svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"&gt;&lt;polyline points="20 6 9 17 4 12"/&gt;&lt;/svg&gt;,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>Next: () =&gt; &lt;svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"&gt;&lt;path d="M5 12h14"/&gt;&lt;path d="m12 5 7 7-7 7"/&gt;&lt;/svg&gt;,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>Alert: () =&gt; &lt;svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"&gt;&lt;path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/&gt;&lt;line x1="12" y1="9" x2="12" y2="13"/&gt;&lt;line x1="12" y1="17" x2="12.01" y2="17"/&gt;&lt;/svg&gt;,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>Tool: () =&gt; &lt;svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"&gt;&lt;path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/&gt;&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- 3D OUTLET MODEL ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const OutletScene = () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const mountRef = useRef(null);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>useEffect(() =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (!mountRef.current || typeof THREE === 'undefined') return;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const w = mountRef.current.clientWidth;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const h = mountRef.current.clientHeight;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>const scene = new THREE.Scene();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>scene.background = new THREE.Color(0x0f172a);</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>const camera = new THREE.PerspectiveCamera(45, w/h, 0.1, 1000);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>camera.position.set(4, 2, 6);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>camera.lookAt(0,0,0);</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>const renderer = new THREE.WebGLRenderer({ antialias: true });</p>
+<p class="p1"><span class="Apple-converted-space">                </span>renderer.setSize(w, h);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>mountRef.current.innerHTML = '';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>mountRef.current.appendChild(renderer.domElement);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Outlet Body (White Plastic)</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const bodyGeo = new THREE.BoxGeometry(1.5, 2.5, 0.8);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const bodyMat = new THREE.MeshPhongMaterial({ color: 0xffffff });</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const outlet = new THREE.Mesh(bodyGeo, bodyMat);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>scene.add(outlet);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Face Plate Detail</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const faceGeo = new THREE.BoxGeometry(1.2, 2.2, 0.1);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const face = new THREE.Mesh(faceGeo, bodyMat);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>face.position.z = 0.45;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>outlet.add(face);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Slots (Visual)</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const slotGeo = new THREE.BoxGeometry(0.1, 0.4, 0.1);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const slotMat = new THREE.MeshBasicMaterial({ color: 0x000000 });</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const l1 = new THREE.Mesh(slotGeo, slotMat); l1.position.set(-0.3, 0.5, 0.5); outlet.add(l1);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const r1 = new THREE.Mesh(slotGeo, slotMat); r1.position.set(0.3, 0.5, 0.5); outlet.add(r1);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const l2 = new THREE.Mesh(slotGeo, slotMat); l2.position.set(-0.3, -0.5, 0.5); outlet.add(l2);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const r2 = new THREE.Mesh(slotGeo, slotMat); r2.position.set(0.3, -0.5, 0.5); outlet.add(r2);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Terminals (Crucial for learning)</p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Hot Side (Brass/Gold)</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const screwGeo = new THREE.CylinderGeometry(0.15, 0.15, 0.1, 16);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const brassMat = new THREE.MeshStandardMaterial({ color: 0xd4af37, metalness: 1, roughness: 0.3 });</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const hot1 = new THREE.Mesh(screwGeo, brassMat); hot1.rotation.z = Math.PI/2; hot1.position.set(0.8, 0.5, 0); outlet.add(hot1);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const hot2 = new THREE.Mesh(screwGeo, brassMat); hot2.rotation.z = Math.PI/2; hot2.position.set(0.8, -0.5, 0); outlet.add(hot2);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Neutral Side (Silver)</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const silverMat = new THREE.MeshStandardMaterial({ color: 0xc0c0c0, metalness: 1, roughness: 0.3 });</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const neu1 = new THREE.Mesh(screwGeo, silverMat); neu1.rotation.z = Math.PI/2; neu1.position.set(-0.8, 0.5, 0); outlet.add(neu1);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const neu2 = new THREE.Mesh(screwGeo, silverMat); neu2.rotation.z = Math.PI/2; neu2.position.set(-0.8, -0.5, 0); outlet.add(neu2);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Ground (Green)</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const greenMat = new THREE.MeshStandardMaterial({ color: 0x22c55e, metalness: 0.5 });</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const gnd = new THREE.Mesh(screwGeo, greenMat); gnd.rotation.x = Math.PI/2; gnd.position.set(0, -1.3, 0); outlet.add(gnd);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Lighting</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const light = new THREE.DirectionalLight(0xffffff, 1);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>light.position.set(5, 5, 5);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>scene.add(light);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>scene.add(new THREE.AmbientLight(0x404040));</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>let t = 0;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const animate = () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>requestAnimationFrame(animate);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>t += 0.01;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>outlet.rotation.y = Math.sin(t) * 0.5; // Gentle rotation to show sides</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>renderer.render(scene, camera);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>};</p>
+<p class="p1"><span class="Apple-converted-space">                </span>animate();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Resize logic</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const handleResize = () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if(mountRef.current) {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const nw = mountRef.current.clientWidth;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const nh = mountRef.current.clientHeight;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>renderer.setSize(nw, nh);</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>camera.aspect = nw/nh;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>camera.updateProjectionMatrix();</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>};</p>
+<p class="p1"><span class="Apple-converted-space">                </span>window.addEventListener('resize', handleResize);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return () =&gt; window.removeEventListener('resize', handleResize);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}, []);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>return &lt;div ref={mountRef} id="three-canvas-container" /&gt;;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- WIRING GAME COMPONENT ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const WiringGame = ({ onComplete }) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [connections, setConnections] = useState({ black: null, white: null, green: null });</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [selectedWire, setSelectedWire] = useState(null);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const handleWireClick = (color) =&gt; setSelectedWire(color);</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const handleTerminalClick = (terminal) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (selectedWire) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const newConns = { ...connections, [selectedWire]: terminal };</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>setConnections(newConns);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>setSelectedWire(null);</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>// Check win condition</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if (newConns.black === 'brass' &amp;&amp; newConns.white === 'silver' &amp;&amp; newConns.green === 'ground') {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>onComplete(true);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>return (</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div className="flex flex-col items-center w-full max-w-3xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="flex justify-between w-full mb-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{/* Wires */}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="flex flex-col gap-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div className="text-xs font-bold text-slate-400 uppercase mb-2"&gt;Source Wires&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{['black', 'white', 'green'].map(color =&gt; (</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;button<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>key={color}</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>onClick={() =&gt; handleWireClick(color)}</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>className={`flex items-center gap-3 px-4 py-3 rounded-lg border-2 transition-all w-40</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>${selectedWire === color ? 'border-blue-500 bg-blue-900/30' : 'border-slate-700 bg-slate-800'}</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>${connections[color] ? 'opacity-50 cursor-default' : 'hover:border-slate-500'}</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>`}</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>disabled={connections[color] !== null}</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div className={`w-4 h-4 rounded-full ${color === 'black' ? 'bg-black' : color === 'white' ? 'bg-white' : 'bg-green-500'}`}&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;span className="capitalize font-mono"&gt;{color}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>{connections[color] &amp;&amp; &lt;Icons.Check className="w-4 h-4 text-green-500 ml-auto"/&gt;}</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>))}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{/* Diagram Area (SVG) */}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="relative w-64 h-64 bg-slate-800 rounded-xl border border-slate-700 flex items-center justify-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{/* Schematic of Outlet */}</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div className="w-32 h-48 bg-white rounded flex flex-col items-center justify-between py-4 relative shadow-lg"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>{/* Silver Terminals (Left) */}</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;button onClick={() =&gt; handleTerminalClick('silver')} className="absolute -left-3 top-10 w-6 h-6 rounded-full bg-gray-300 border-2 border-gray-400 hover:scale-125 transition"&gt;&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div className="absolute -left-16 top-10 text-xs text-slate-400 font-mono"&gt;Silver (Neu)&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                                </span>{/* Brass Terminals (Right) */}</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;button onClick={() =&gt; handleTerminalClick('brass')} className="absolute -right-3 top-10 w-6 h-6 rounded-full bg-yellow-600 border-2 border-yellow-700 hover:scale-125 transition"&gt;&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div className="absolute -right-16 top-10 text-xs text-slate-400 font-mono"&gt;Brass (Hot)&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                                </span>{/* Ground Terminal (Bottom) */}</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;button onClick={() =&gt; handleTerminalClick('ground')} className="absolute bottom-2 w-6 h-6 rounded-full bg-green-500 border-2 border-green-700 hover:scale-125 transition"&gt;&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div className="absolute bottom-[-20px] text-xs text-slate-400 font-mono"&gt;Green (Gnd)&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                                </span></p>
+<p class="p1"><span class="Apple-converted-space">                                </span>{/* Face details */}</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div className="w-2 h-8 bg-black rounded mt-6"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div className="w-2 h-8 bg-black rounded mt-4"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="h-12"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{connections.black === 'brass' &amp;&amp; connections.white === 'silver' &amp;&amp; connections.green === 'ground' ? (</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div className="text-green-400 font-bold text-xl animate-bounce flex items-center gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;Icons.Check /&gt; WIRING CORRECT - CIRCUIT SAFE</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>) : (</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p className="text-slate-500"&gt;Select a wire, then click the correct terminal screw.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>)}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- MAIN APP ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const App = () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [step, setStep] = useState(0);</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Module 1: Safety</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [powerOn, setPowerOn] = useState(true);</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Module 3: Game State</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [gameComplete, setGameComplete] = useState(false);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Module 4: Quiz</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [quizAnswers, setQuizAnswers] = useState({});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [quizPassed, setQuizPassed] = useState(false);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Feedback</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [surveySent, setSurveySent] = useState(false);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const modules = [</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ title: "Intro", id: "start" },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ title: "Safety", id: "lockout" },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ title: "Hardware", id: "3d" },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ title: "Installation", id: "game" },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ title: "Certification", id: "quiz" },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ title: "Feedback", id: "survey" },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ title: "Instructor", id: "bio" },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{ title: "Q&amp;A", id: "qa" }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const handleQuiz = (id, idx, corr) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const n = {...quizAnswers, [id]: idx === corr};</p>
+<p class="p1"><span class="Apple-converted-space">                </span>setQuizAnswers(n);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if(Object.keys(n).length === 3 &amp;&amp; Object.values(n).every(v=&gt;v)) setQuizPassed(true);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const canProceed = () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (step === 1 &amp;&amp; powerOn) return false;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (step === 3 &amp;&amp; !gameComplete) return false;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (step === 4 &amp;&amp; !quizPassed) return false;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return true;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const next = () =&gt; { if(canProceed()) setStep(s =&gt; Math.min(s+1, modules.length-1)); };</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const prev = () =&gt; setStep(s =&gt; Math.max(0, s-1));</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Arrow Key Navigation</p>
+<p class="p1"><span class="Apple-converted-space">            </span>useEffect(() =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const handleKey = (e) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if (e.key === 'ArrowRight' || e.key === ' ') next();</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if (e.key === 'ArrowLeft') prev();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>};</p>
+<p class="p1"><span class="Apple-converted-space">                </span>window.addEventListener('keydown', handleKey);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return () =&gt; window.removeEventListener('keydown', handleKey);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}, [step, powerOn, gameComplete, quizPassed]);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>return (</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div className="min-h-screen bg-slate-900 flex items-center justify-center p-4 text-slate-100"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div className="w-full max-w-6xl bg-slate-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col min-h-[650px] border border-slate-700 relative"&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{/* Header */}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="bg-slate-950 p-6 flex justify-between items-center border-b border-slate-800"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;h1 className="text-xl font-bold tracking-wider text-yellow-400 flex items-center gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;Icons.Bolt /&gt; TECHNICAL TRAINING &lt;span className="text-white opacity-50"&gt;| ELECTRICAL FUNDAMENTALS&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;p className="text-xs text-slate-400 mt-1"&gt;Module {step + 1}: {modules[step].title}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div className="flex gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>{modules.map((m, i) =&gt; &lt;div key={i} className={`h-1.5 w-6 rounded-full transition-all ${i&lt;=step ? 'bg-yellow-500' : 'bg-slate-700'}`}&gt;&lt;/div&gt;)}</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{/* Content */}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="flex-grow p-8 flex flex-col relative bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                            </span></p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{/* 0. INTRO */}</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{step === 0 &amp;&amp; (</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div className="flex flex-col items-center justify-center flex-grow text-center fade-up"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div className="w-24 h-24 bg-yellow-900/30 rounded-full flex items-center justify-center mb-6 border border-yellow-500/50 animate-pulse"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;Icons.Tool /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;h2 className="text-4xl font-bold mb-4 text-white"&gt;Wiring Fundamentals&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;p className="text-lg text-slate-400 max-w-2xl mb-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>Standard Operating Procedure for 120V Receptacle Installation. This module covers safety lockout, component identification, and wiring logic.</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;button onClick={next} className="bg-yellow-600 hover:bg-yellow-500 text-black px-8 py-3 rounded font-bold transition"&gt;Begin Training&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>)}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{/* 1. SAFETY LOCKOUT */}</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{step === 1 &amp;&amp; (</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div className="flex flex-col items-center justify-center flex-grow fade-up"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;h2 className="text-3xl font-bold mb-2 text-red-400 uppercase"&gt;Critical Safety Check&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;p className="text-slate-400 mb-8"&gt;You must isolate power before working on the circuit. Perform Lockout/Tagout.&lt;/p&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div className="bg-slate-900 p-10 rounded-xl border-2 border-slate-700 flex flex-col items-center gap-6 shadow-inner"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div className="text-xl font-mono font-bold"&gt;MAIN BREAKER PANEL&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div className="relative w-32 h-48 bg-gray-300 rounded flex flex-col items-center justify-center border-4 border-gray-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;div<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>onClick={() =&gt; setPowerOn(!powerOn)}</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>className={`w-12 h-24 rounded cursor-pointer shadow-xl border-2 border-black/20 flex items-center justify-center breaker-switch ${powerOn ? 'breaker-on' : 'breaker-off'}`}</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;div className="w-8 h-2 bg-white/20 rounded"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;div className="absolute top-2 text-xs font-black text-gray-600"&gt;120V&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;div className="absolute bottom-2 text-xs font-black text-gray-600"&gt;{powerOn ? 'ON' : 'OFF'}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div className={`text-2xl font-bold font-mono ${powerOn ? 'text-red-500 animate-pulse' : 'text-green-500'}`}&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>{powerOn ? "⚠️ CIRCUIT LIVE ⚠️" : "✓ POWER OFF - SAFE"}</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>)}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{/* 2. 3D HARDWARE */}</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{step === 2 &amp;&amp; (</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div className="flex flex-col md:flex-row h-full gap-8 fade-up"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div className="w-full md:w-1/3 flex flex-col justify-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;h2 className="text-3xl font-bold mb-4 text-yellow-400"&gt;Hardware Recognition&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;p className="text-slate-400 mb-6 text-sm"&gt;Rotate the model to identify terminal screws.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div className="space-y-4 text-sm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;div className="bg-slate-900 p-4 rounded border-l-4 border-yellow-600"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;strong className="text-yellow-500"&gt;Brass Terminals:&lt;/strong&gt; Connect to the &lt;span class="text-white"&gt;Black (Hot)&lt;/span&gt; wire.</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;div className="bg-slate-900 p-4 rounded border-l-4 border-gray-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;strong className="text-gray-300"&gt;Silver Terminals:&lt;/strong&gt; Connect to the &lt;span class="text-white"&gt;White (Neutral)&lt;/span&gt; wire.</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;div className="bg-slate-900 p-4 rounded border-l-4 border-green-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;strong className="text-green-500"&gt;Green Screw:&lt;/strong&gt; Connects to bare copper (Ground).</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div className="w-full md:w-2/3 relative border border-slate-700 rounded-xl overflow-hidden"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div className="absolute top-4 left-4 z-10 bg-black/50 text-white text-xs px-2 py-1 rounded font-mono"&gt;Interactive 3D Model&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;OutletScene /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>)}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{/* 3. INSTALLATION GAME */}</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{step === 3 &amp;&amp; (</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div className="flex flex-col items-center justify-center flex-grow fade-up"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;h2 className="text-3xl font-bold mb-2"&gt;Installation Simulation&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;p className="text-slate-400 mb-6"&gt;Connect the wires to the correct terminals.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div className="bg-slate-900 p-8 rounded-xl border border-slate-700 w-full max-w-4xl flex justify-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;WiringGame onComplete={setGameComplete} /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>)}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{/* 4. QUIZ */}</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{step === 4 &amp;&amp; (</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div className="flex flex-col items-center justify-center flex-grow fade-up"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;h2 className="text-3xl font-bold mb-8"&gt;Certification Exam&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div className="w-full max-w-2xl space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>{[</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>{ id: 'q1', q: "Which wire connects to the Brass screw?", opts: ["White (Neutral)", "Black (Hot)", "Green (Ground)"], corr: 1 },</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>{ id: 'q2', q: "What is the first step in any electrical installation?", opts: ["Strip wires", "Mount box", "Lockout/Tagout Power"], corr: 2 },</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>{ id: 'q3', q: "What happens if you reverse Hot and Neutral?", opts: ["Reverse Polarity (Safety Hazard)", "Nothing", "Breaker trips immediately"], corr: 0 }</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>].map((q, i) =&gt; (</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;div key={q.id} className="bg-slate-900 border border-slate-700 p-6 rounded-xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;p className="font-bold text-slate-200 mb-3"&gt;{i+1}. {q.q}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;div className="flex gap-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>{q.opts.map((opt, idx) =&gt; (</p>
+<p class="p1"><span class="Apple-converted-space">                                                        </span>&lt;button<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                                                            </span>key={idx}</p>
+<p class="p1"><span class="Apple-converted-space">                                                            </span>onClick={() =&gt; handleQuiz(q.id, idx, q.corr)}</p>
+<p class="p1"><span class="Apple-converted-space">                                                            </span>disabled={quizAnswers[q.id] !== undefined}</p>
+<p class="p1"><span class="Apple-converted-space">                                                            </span>className={`flex-1 py-2 px-4 rounded-lg text-sm font-bold transition-all ${</p>
+<p class="p1"><span class="Apple-converted-space">                                                                </span>quizAnswers[q.id] !== undefined</p>
+<p class="p1"><span class="Apple-converted-space">                                                                    </span>? idx === q.corr<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                                                                        </span>? 'bg-green-600 text-white'<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                                                                        </span>: quizAnswers[q.id] === idx ? 'bg-red-600 text-white' : 'bg-slate-800 text-slate-500'</p>
+<p class="p1"><span class="Apple-converted-space">                                                                    </span>: 'bg-slate-800 hover:bg-yellow-600 text-yellow-400 hover:text-white'</p>
+<p class="p1"><span class="Apple-converted-space">                                                            </span>}`}</p>
+<p class="p1"><span class="Apple-converted-space">                                                        </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                            </span>{opt}</p>
+<p class="p1"><span class="Apple-converted-space">                                                        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>))}</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>))}</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>{quizPassed &amp;&amp; &lt;div className="mt-6 text-green-400 font-bold text-xl animate-bounce"&gt;PASSED. PROCEED TO FEEDBACK.&lt;/div&gt;}</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>)}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{/* 5. FEEDBACK */}</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{step === 5 &amp;&amp; (</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div className="flex flex-col items-center justify-center flex-grow fade-up"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;h2 className="text-3xl font-bold mb-6"&gt;Learner Feedback&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;p className="text-slate-400 mb-8"&gt;Help us improve the safety curriculum.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>{!surveySent ? (</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div className="bg-slate-900 p-8 rounded-xl border border-slate-700 w-full max-w-lg"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;div className="space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>&lt;label className="block text-sm mb-2"&gt;Was the Wiring Simulation helpful?&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>&lt;div className="flex gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                        </span>{[1,2,3,4,5].map(n =&gt; &lt;button key={n} className="flex-1 bg-slate-800 hover:bg-yellow-700 py-2 rounded"&gt;{n}&lt;/button&gt;)}</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>&lt;label className="block text-sm mb-2"&gt;Do you feel confident identifying terminals?&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>&lt;div className="flex gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                        </span>{[1,2,3,4,5].map(n =&gt; &lt;button key={n} className="flex-1 bg-slate-800 hover:bg-yellow-700 py-2 rounded"&gt;{n}&lt;/button&gt;)}</p>
+<p class="p1"><span class="Apple-converted-space">                                                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                                </span>&lt;button onClick={()=&gt;setSurveySent(true)} className="w-full bg-yellow-600 hover:bg-yellow-500 text-black py-2 rounded font-bold mt-4"&gt;Submit Feedback&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>) : (</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div className="text-center p-10 bg-green-900/20 rounded-xl border border-green-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;div className="text-4xl mb-2"&gt;✅&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;h3 className="text-xl font-bold text-green-400"&gt;Feedback Received&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>)}</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>)}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{/* 6. INSTRUCTOR */}</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{step === 6 &amp;&amp; (</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div className="flex flex-col items-center justify-center flex-grow text-center fade-up"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div className="w-24 h-24 bg-yellow-600 rounded-full flex items-center justify-center text-black text-3xl font-bold mb-6 shadow-[0_0_20px_rgba(202,138,4,0.6)]"&gt;JT&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;h2 className="text-4xl font-bold text-white mb-2"&gt;Jaycob Tharp&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;p className="text-yellow-400 font-mono mb-8"&gt;Senior Technical Trainer Candidate&lt;/p&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                                    </span></p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl text-left"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div className="bg-slate-900 p-6 rounded-xl border-t-4 border-yellow-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;h3 className="font-bold text-white mb-2"&gt;Home Depot (Operations)&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;p className="text-sm text-slate-400"&gt;Experienced in safety protocols, tool usage, and creating job aids for complex hardware tasks. I know the stakes of physical installation.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div className="bg-slate-900 p-6 rounded-xl border-t-4 border-blue-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;h3 className="font-bold text-white mb-2"&gt;Reynolds &amp; Reynolds (Scale)&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;p className="text-sm text-slate-400"&gt;Proven ability to rollout technical training to nationwide teams. I build systems that scale with your growth.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div className="bg-slate-900 p-6 rounded-xl border-t-4 border-green-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;h3 className="font-bold text-white mb-2"&gt;PenLink (Analysis)&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;p className="text-sm text-slate-400"&gt;Bridged the gap between engineering specs and support teams. I translate "Schematic" into "Action".&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div className="mt-12 p-6 border border-slate-700 rounded-lg max-w-2xl bg-slate-900/50"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;p className="italic text-slate-300"&gt;"Whether it's wiring an outlet or avionics sensors, the principle is the same: Safety, Process, and Verification. I built this module to prove I can teach technical hardware skills effectively."&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>)}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{/* 7. Q&amp;A */}</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{step === 7 &amp;&amp; (</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div className="flex flex-col items-center justify-center flex-grow text-center fade-up"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div className="text-6xl mb-6 text-yellow-400"&gt;&lt;Icons.Question /&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;h2 className="text-5xl font-bold text-white mb-4"&gt;Any Questions?&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;p className="text-xl text-slate-400 mb-12"&gt;Thank you for your time.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div className="text-sm font-mono text-slate-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                        </span>Jaycob Tharp | jaycobtharp@outlook.com | 402.209.2126</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>)}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{/* Footer */}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div className="bg-slate-950 p-4 flex justify-between border-t border-slate-800"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;button onClick={prev} disabled={step===0} className="text-slate-500 font-bold px-6 py-2 disabled:opacity-30 hover:text-white transition"&gt;BACK&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>{step &lt; 7 &amp;&amp; (</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;button<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>onClick={next}<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>disabled={!canProceed()}</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>className="bg-yellow-600 hover:bg-yellow-500 text-black font-bold px-8 py-2 rounded disabled:opacity-30 disabled:cursor-not-allowed transition shadow-[0_0_15px_rgba(202,138,4,0.4)]"</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>{!canProceed() ? "COMPLETE TASK TO CONTINUE" : "NEXT"} &lt;Icons.Next/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>)}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const root = ReactDOM.createRoot(document.getElementById('root'));</p>
+<p class="p1"><span class="Apple-converted-space">        </span>root.render(&lt;App /&gt;);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
